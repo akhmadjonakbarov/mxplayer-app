@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:mxplayer/screens/home/home_screen.dart';
 import 'package:mxplayer/screens/screens.dart';
 
 void main() {
