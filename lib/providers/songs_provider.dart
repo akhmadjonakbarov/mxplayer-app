@@ -19,6 +19,7 @@ class SongsProvider with ChangeNotifier {
       coverUrl: "$assetImage/alaqa.jpg",
     )
   ];
+
   List<Song> get songs {
     return [..._songs];
   }

@@ -11,6 +11,7 @@ class HomeScreen extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final songs = Provider.of<SongsProvider>(context).songs;
+    final playlists = Provider.of<PlaylistsProvider>(context).playlists;
     return Container(
       decoration: BoxDecoration(
         gradient: LinearGradient(
@@ -29,38 +30,26 @@ class HomeScreen extends StatelessWidget {
           child: Column(
             children: [
               const _DiscoverMusic(),
+              _TrendingMusic(songs: songs),
               Padding(
-                padding: const EdgeInsets.only(
-                  top: 20,
-                  bottom: 20,
-                  left: 20,
-                ),
+                padding: const EdgeInsets.all(20.0),
                 child: Column(
                   children: [
-                    Padding(
-                      padding: const EdgeInsets.only(
-                        right: 20,
-                      ),
-                      child: SectionHeader(
-                        title: "Trending Music",
-                      ),
+                    SectionHeader(
+                      title: "Playlists",
                     ),
                     const SizedBox(
-                      height: 20,
+                      height: 5,
                     ),
-                    SizedBox(
-                      height: MediaQuery.of(context).size.height * 0.27,
-                      child: ListView.builder(
-                        scrollDirection: Axis.horizontal,
-                        itemCount: songs.length,
-                        itemBuilder: (context, index) {
-                          Song song = songs[index];
-                          return SongCard(
-                            song: song,
-                          );
-                        },
-                      ),
-                    ),
+                    ListView.builder(
+                      shrinkWrap: true,
+                      physics: const NeverScrollableScrollPhysics(),
+                      itemCount: playlists.length,
+                      itemBuilder: (context, index) {
+                        Playlist playlist = playlists[index];
+                        return PlaylistCard(playlist: playlist);
+                      },
+                    )
                   ],
                 ),
               )
@@ -68,6 +57,54 @@ class HomeScreen extends StatelessWidget {
           ),
         ),
         bottomNavigationBar: const _CustomNavigationBar(),
+      ),
+    );
+  }
+}
+
+class _TrendingMusic extends StatelessWidget {
+  const _TrendingMusic({
+    Key? key,
+    required this.songs,
+  }) : super(key: key);
+
+  final List<Song> songs;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.only(
+        top: 20,
+        bottom: 20,
+        left: 20,
+      ),
+      child: Column(
+        children: [
+          Padding(
+            padding: const EdgeInsets.only(
+              right: 20,
+            ),
+            child: SectionHeader(
+              title: "Trending Music",
+            ),
+          ),
+          const SizedBox(
+            height: 20,
+          ),
+          SizedBox(
+            height: MediaQuery.of(context).size.height * 0.27,
+            child: ListView.builder(
+              scrollDirection: Axis.horizontal,
+              itemCount: songs.length,
+              itemBuilder: (context, index) {
+                Song song = songs[index];
+                return SongCard(
+                  song: song,
+                );
+              },
+            ),
+          ),
+        ],
       ),
     );
   }
