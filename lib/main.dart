@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mxplayer/providers/providers.dart';
-import 'package:mxplayer/providers/songs_provider.dart';
 import 'package:mxplayer/screens/screens.dart';
 import 'package:provider/provider.dart';
 
@@ -21,7 +20,7 @@ class MyApp extends StatelessWidget {
         ),
         ChangeNotifierProvider.value(
           value: PlaylistsProvider(),
-        )
+        ),
       ],
       child: GetMaterialApp(
         debugShowCheckedModeBanner: false,
@@ -31,7 +30,7 @@ class MyApp extends StatelessWidget {
                 displayColor: Colors.white,
               ),
         ),
-        title: 'Material App',
+        title: 'MxPlayer App',
         home: const SongScreen(),
         getPages: [
           GetPage(
